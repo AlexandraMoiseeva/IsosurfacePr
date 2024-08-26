@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.csv3d filter=lfs diff=lfs merge=lfs -text
+isosurface filter=lfs diff=lfs merge=lfs -text
