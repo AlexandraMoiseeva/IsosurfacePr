@@ -1,0 +1,29 @@
+import FreeCAD
+import Part
+import Mesh
+
+def normalize_vertices(mesh):
+  min_x = min(vertex[0] for vertex in mesh.Mesh.Topology[0])
+  min_y = min(vertex[1] for vertex in mesh.Mesh.Topology[0])
+  min_z = min(vertex[2] for vertex in mesh.Mesh.Topology[0])
+  max_x = max(vertex[0] for vertex in mesh.Mesh.Topology[0])
+  max_y = max(vertex[1] for vertex in mesh.Mesh.Topology[0])
+  max_z = max(vertex[2] for vertex in mesh.Mesh.Topology[0])
+
+  for vertex in range(len(mesh.Mesh.Topology[0])):
+    mesh.Mesh.Topology[0][vertex][0] = (mesh.Mesh.Topology[0][vertex][0] - min_x) / (max_x - min_x)
+    mesh.Mesh.Topology[0][vertex][1] = (mesh.Mesh.Topology[0][vertex][1] - min_y) / (max_y - min_y)
+    mesh.Mesh.Topology[0][vertex][2] = (mesh.Mesh.Topology[0][vertex][2] - min_z) / (max_z - min_z)
+
+  return mesh
+
+def delaunay_smoothing(mesh, iterations=10):
+    for _ in range(iterations):
+        mesh.smooth()
+    return mesh
+
+doc = FreeCAD.ActiveDocument
+
+mesh_object = doc.getObject("GEO2")
+mesh_object = normalize_vertices(mesh_object)
+delaunay_smoothing(mesh_object.Mesh, iterations=0)

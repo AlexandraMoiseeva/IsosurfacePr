@@ -12,12 +12,10 @@ try:
         arg2.session_id = 0
         qform.qform_attach_to(arg2)
         
-        arg3 = MeshExport()
-        arg3.object_type = ObjectType.Workpiece
-        arg3.object_id = 1
-        arg3.format = MeshFormat.CSV3D
-        arg3.file = script_dir + r'/data/' + 'mesh'
-        qform.invoke(0, 'export_mesh', arg3, None)
+    arg3 = FileName()
+    arg3.file = r'C:\\Users\Александра\Documents\GitHub\IsosurfacePr\export_data\data\isosurface.stl'
+    ret3:ObjectList = qform.geometry_load(arg3)
+
         
 
 except Exception as ex:

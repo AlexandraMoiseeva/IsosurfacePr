@@ -12,14 +12,24 @@ try:
         arg2.session_id = 0
         qform.qform_attach_to(arg2)
         
-        arg3 = ExportFieldIsosurface()
-        arg3.object_type = ObjectType.Workpiece
-        arg3.object_id = 1
-        arg3.source_operation = 2
-        arg3.field = "T"
-        arg3.field_value = 0.1
-        arg3.file = script_dir + r'/data/' + 'isosurface'
+    ret3:Record = qform.record_get_last()
+    
+    arg3 = ExportFieldIsosurface()
+    arg3.object_type = ObjectType.Workpiece
+    arg3.object_id = 1
+    arg3.source_operation = 2
+    arg3.field = "T"
+    for i in range(10):
+        arg3.field_value = i/10
+        arg3.file = script_dir + r'/data/' + 'isosurface_folder/'+ 'isosurface' + str(i/10) + '.stl'
         isolines = qform.invoke(0, 'export_field_isosurface', arg3, None)
+    
+    arg4 = MeshExport()
+    arg4.object_type = ObjectType.Workpiece
+    arg4.object_id = 1
+    arg4.format = MeshFormat.STL
+    arg4.file = script_dir + r'/data/' + 'mesh'
+    qform.invoke(0, 'export_mesh', arg4, None)
         
 
 except Exception as ex:

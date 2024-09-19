@@ -1,0 +1,22 @@
+import math
+import FreeCAD
+import FreeCADGui
+import numpy as np  
+import Part
+import Mesh
+from scipy.spatial import Delaunay 
+
+mesh_obj = FreeCAD.ActiveDocument.getObject('GEO2')
+points = mesh_obj.Mesh.Topology[0]
+
+dl = Delaunay(points).simplices
+tr = []
+for elem in dl:
+    one = points[elem[0]]
+    two = points[elem[1]]
+    three = points[elem[2]]
+    tr.append([one, two, three])
+mesh = Mesh.Mesh(tr)
+
+
+Mesh.show(mesh)
