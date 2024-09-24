@@ -19,7 +19,7 @@ try:
     arg3.object_id = 1
     arg3.source_operation = 2
     arg3.field = "T"
-    for i in range(10):
+    for i in range(0, 10)[1:]:
         arg3.field_value = i/10
         arg3.file = script_dir + r'/data/' + 'isosurface_folder/'+ 'isosurface' + str(i/10) + '.stl'
         isolines = qform.invoke(0, 'export_field_isosurface', arg3, None)

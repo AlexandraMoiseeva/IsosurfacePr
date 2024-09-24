@@ -13,9 +13,13 @@ try:
         qform.qform_attach_to(arg2)
         
     arg3 = FileName()
-    arg3.file = r'C:\\Users\Александра\Documents\GitHub\IsosurfacePr\export_data\data\isosurface.stl'
+    arg3.file = script_dir + r'/data/mesh.stl'
     ret3:ObjectList = qform.geometry_load(arg3)
-
+    
+    for i in range(10)[1:]:
+        arg4 = FileName()
+        arg4.file = script_dir + r'/data/isosurface_folder/' + 'isosurface' + str(i/10) + '.stl'
+        ret4:ObjectList = qform.geometry_load(arg4)
         
 
 except Exception as ex:
